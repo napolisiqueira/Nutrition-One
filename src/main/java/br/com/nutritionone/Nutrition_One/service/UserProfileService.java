@@ -24,10 +24,7 @@ public class UserProfileService {
     @Autowired
     private NutritionCalculator calculator;
 
-    /**
-     * Cria um novo perfil para o usuário
-     */
-    @Transactional
+        @Transactional
     public UserProfile createProfile(UUID userId, UserProfileDTO dto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
@@ -135,9 +132,6 @@ public class UserProfileService {
         if (dto.getBodyFatPercentage() != null) profile.setBodyFatPercentage(dto.getBodyFatPercentage());
     }
 
-    /**
-     * Calcula todos os valores nutricionais e atualiza o perfil
-     */
     private void calculateAndSetNutrition(UserProfile profile) {
         // TMB (Taxa Metabólica Basal)
         double bmr = calculator.calculateBMR(
