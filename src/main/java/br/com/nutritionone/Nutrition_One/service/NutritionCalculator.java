@@ -6,13 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class NutritionCalculator {
 
-    /**
-     * Calcula a Taxa Metabólica Basal (TMB/BMR) usando a fórmula de Mifflin-St Jeor
-     * É a mais precisa e atualizada
-     *
-     * Homens: TMB = (10 × peso em kg) + (6,25 × altura em cm) - (5 × idade em anos) + 5
-     * Mulheres: TMB = (10 × peso em kg) + (6,25 × altura em cm) - (5 × idade em anos) - 161
-     */
     public double calculateBMR(Double weight, Double height, Integer age, UserProfile.Gender gender) {
         if (weight == null || height == null || age == null || gender == null) {
             throw new IllegalArgumentException("Dados insuficientes para calcular TMB");
@@ -36,10 +29,6 @@ public class NutritionCalculator {
         return Math.round(bmr * 100.0) / 100.0; // 2 casas decimais
     }
 
-    /**
-     * Calcula o Gasto Energético Total Diário (GET/TDEE)
-     * TDEE = TMB × Fator de Atividade
-     */
     public double calculateTDEE(double bmr, UserProfile.ActivityLevel activityLevel) {
         if (activityLevel == null) {
             throw new IllegalArgumentException("Nível de atividade não definido");
@@ -56,9 +45,6 @@ public class NutritionCalculator {
         return Math.round(bmr * multiplier * 100.0) / 100.0;
     }
 
-    /**
-     * Calcula as calorias alvo baseado no objetivo
-     */
     public double calculateTargetCalories(double tdee, UserProfile.Goal goal) {
         if (goal == null) {
             return tdee; // Manutenção por padrão
