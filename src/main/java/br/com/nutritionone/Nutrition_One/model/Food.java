@@ -29,19 +29,19 @@ public class Food {
     // Valores por 100g do alimento
 
     // MACRONUTRIENTES (em gramas)
-    @Column(nullable = false, precision = 8, scale = 2)
+    @Column(precision = 8, scale = 2)
     private BigDecimal calories; // kcal
 
-    @Column(nullable = false, precision = 8, scale = 2)
+    @Column(precision = 8, scale = 2)
     private BigDecimal protein; // proteína (g)
 
-    @Column(nullable = false, precision = 8, scale = 2)
+    @Column(precision = 8, scale = 2)
     private BigDecimal carbohydrate; // carboidrato (g)
 
-    @Column(nullable = false, precision = 8, scale = 2)
+    @Column(precision = 8, scale = 2)
     private BigDecimal fiber; // fibra (g)
 
-    @Column(nullable = false, precision = 8, scale = 2)
+    @Column(precision = 8, scale = 2)
     private BigDecimal totalFat; // gordura total (g)
 
     @Column(precision = 8, scale = 2)
