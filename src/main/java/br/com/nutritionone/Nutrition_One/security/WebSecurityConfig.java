@@ -2,6 +2,7 @@ package br.com.nutritionone.Nutrition_One.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,10 +18,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable())  // Desabilita CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/users").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()   // ✅ Login público
+                        .requestMatchers(HttpMethod.POST, "/users").permitAll()   // ✅ Cadastro público
+                        .requestMatchers(HttpMethod.GET, "/foods/**").permitAll() // ✅ Buscar alimentos público
+                        .anyRequest().authenticated()                              // 🔒 Resto protegido
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class);

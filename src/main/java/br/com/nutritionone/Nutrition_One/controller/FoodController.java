@@ -15,19 +15,11 @@ public class FoodController {
     @Autowired
     private FoodRepository foodRepository;
 
-    /**
-     * Buscar todos os alimentos
-     * GET /foods
-     */
     @GetMapping
     public ResponseEntity<List<Food>> getAllFoods() {
         return ResponseEntity.ok(foodRepository.findAll());
     }
 
-    /**
-     * Buscar alimento por ID
-     * GET /foods/{id}
-     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getFoodById(@PathVariable Long id) {
         return foodRepository.findById(id)
@@ -35,37 +27,21 @@ public class FoodController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    /**
-     * Buscar alimentos por nome (pesquisa parcial)
-     * GET /foods/search?name=arroz
-     */
     @GetMapping("/search")
     public ResponseEntity<List<Food>> searchFoods(@RequestParam String name) {
         return ResponseEntity.ok(foodRepository.searchByName(name));
     }
 
-    /**
-     * Buscar por categoria
-     * GET /foods/category/Cereais
-     */
     @GetMapping("/category/{category}")
     public ResponseEntity<List<Food>> getFoodsByCategory(@PathVariable String category) {
         return ResponseEntity.ok(foodRepository.findByCategory(category));
     }
 
-    /**
-     * Buscar alimentos verificados
-     * GET /foods/verified
-     */
     @GetMapping("/verified")
     public ResponseEntity<List<Food>> getVerifiedFoods() {
         return ResponseEntity.ok(foodRepository.findByVerifiedTrue());
     }
 
-    /**
-     * Criar novo alimento (admin/usuário pode adicionar)
-     * POST /foods
-     */
     @PostMapping
     public ResponseEntity<?> createFood(@RequestBody Food food) {
         try {
@@ -77,10 +53,6 @@ public class FoodController {
         }
     }
 
-    /**
-     * Atualizar alimento
-     * PUT /foods/{id}
-     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateFood(@PathVariable Long id, @RequestBody Food food) {
         try {
@@ -95,10 +67,6 @@ public class FoodController {
         }
     }
 
-    /**
-     * Deletar alimento
-     * DELETE /foods/{id}
-     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteFood(@PathVariable Long id) {
         try {

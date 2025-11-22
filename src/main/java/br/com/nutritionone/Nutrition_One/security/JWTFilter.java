@@ -44,8 +44,7 @@ public class JWTFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
 
-        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | IllegalArgumentException |
-                 SignatureException e) {
+        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | IllegalArgumentException e) {
             logger.error("JWT validation error", e);
             response.setStatus(HttpStatus.FORBIDDEN.value());
         }
